@@ -48,7 +48,7 @@
     font-family: 'Roboto', sans-serif; 
 } */
 
-#mainNav .navbar-nav > li.nav-item > a {
+/* #mainNav .navbar-nav > li.nav-item > a {
     text-transform: none;
     font-size: 14px;
     font-weight: 400;
@@ -58,21 +58,21 @@
     font-family: 'Martel', serif;
     font-weight: 400;
     color: #51513D;
-}
+} */
 
 /* .post-preview > a > .post-subtitle {
     font-weight: 100;
 } */
 
-.post-preview > .post-meta {
+/* .post-preview > .post-meta {
     color: #1B2021;
-}
+} */
 
 /* body {
     background-color: #f5f6f7;
 } */
 
-.btn {
+/* .btn {
     font-size: 14px;
     font-weight: 800;
     padding: 15px 25px;
@@ -97,4 +97,4 @@
   .btn-lg {
     font-size: 16px;
     padding: 25px 35px;
-  }
+  } */

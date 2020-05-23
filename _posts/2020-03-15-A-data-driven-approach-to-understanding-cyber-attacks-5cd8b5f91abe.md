@@ -10,7 +10,7 @@ slug: /@87bdharr/a-data-driven-approach-to-understanding-cyber-attacks-5cd8b5f91
 author: Dan Harrison
 ---
 
-<img class="centre" src="/img/1__rup5jSB3660x__E6CZF5SaQ.jpeg" width="100%" height="50%">
+<img class="centre" src="{{site.baseurl}}/assets/img/1__rup5jSB3660x__E6CZF5SaQ.jpeg" width="100%" height="50%">
 <figcaption class="fig-caption">Photo by Markus Spiske on Unsplash</figcaption>
 
 
@@ -78,7 +78,7 @@ df_actors_combined = pd.concat([df_actors_internal, df_actors_external])
 df_actors_combined.head()
 ```
 
-<img class="centre" src="/img/1__IN5cRhPpYESPIvVsoh5gYg.png" width="50%" height="50%" alt="Concatenated dataframe df_actors_combined contains both internal and external actors">
+<img class="centre" src="{{site.baseurl}}/assets/img/1__IN5cRhPpYESPIvVsoh5gYg.png" width="50%" height="50%" alt="Concatenated dataframe df_actors_combined contains both internal and external actors">
 <figcaption class="fig-caption">Concatenated dataframe df_actors_combined contains both internal and external actors</figcaption>
 
 
@@ -109,7 +109,7 @@ For the known data on internal actors, a significant proportion can be attribute
 
 Interestingly, from my experience in DevOps environments, I anticipated the number of incidents caused by software developers to be much higher, given the elevated level of access and working knowledge they posses. For example, a developer could modify the underlying source code of software applications to benefit themselves someway, or simply leave secrets such as passwords and API keys exposed in code on hosted on GitHub:
 
-<img class="centre" src="/img/github_password.png" width="100%"  alt="Searching “removed password” on Github reveals many instances where secrets have been left in source code">
+<img class="centre" src="{{site.baseurl}}/img/github_password.png" width="100%"  alt="Searching “removed password” on Github reveals many instances where secrets have been left in source code">
 <figcaption class="fig-caption">Searching “removed password” on Github reveals many instances where secrets have been left in source code</figcaption>
 
 
@@ -126,7 +126,7 @@ plt.xticks(rotation=25)
 plt.ylabel('Count')  
 plt.savefig('df\_actors\_developers')
 ```
-<img class="centre" src="/img/1__Kz8y07jFwObbmRBUr7XnSA.png" width="80%"  height="60%" alt="The majority of incidents caused by develops were caused by errors, very few were malicious in nature">
+<img class="centre" src="{{site.baseurl}}/img/1__Kz8y07jFwObbmRBUr7XnSA.png" width="80%"  height="60%" alt="The majority of incidents caused by develops were caused by errors, very few were malicious in nature">
 <figcaption class="fig-caption">The majority of incidents caused by develops were caused by errors, very few were malicious in nature</figcaption>
 
 The resulting bar chart shows that of the 73 developer related incidents, 56 were errors (i.e. accidental) and the remaining 17 related to misuse, hacking and malware (i.e. malicious). Helpfully, VERIS provides a summary of the incident which I extracted for the 14 incidents labelled as ‘misuse’ and outputted them to a csv to make it easier to read:
@@ -178,7 +178,7 @@ df_action_actor.head()
 
 The resulting dataframe now ready to produce a Sankey diagram looked like this:
 
-<img class="centre" src="/img/1__406Hh5ipEzji9uixJs2n9w.png" width="50%"  alt="The df_action_actor dataframe stores the relationship between actor origin and their likely action type">
+<img class="centre" src="{{site.baseurl}}/img/1__406Hh5ipEzji9uixJs2n9w.png" width="50%"  alt="The df_action_actor dataframe stores the relationship between actor origin and their likely action type">
 <figcaption class="fig-caption">The df_action_actor dataframe stores the relationship between actor origin and their likely action type</figcaption>
 
 
@@ -205,7 +205,7 @@ After cleaning the dataset I was able to extract the following plot:
 ax1 = combined.iloc[:, 2:10].plot(kind='bar', stacked=True, figsize=(10,5))
 ```
 
-<img class="centre" src="/img/1__gNWycej1syTlSnFC9jLIWg.png" width="100%"  alt="The frequency of cyber incidents caused by hacking activities 2006–2019">
+<img class="centre" src="{{site.baseurl}}/img/1__gNWycej1syTlSnFC9jLIWg.png" width="100%"  alt="The frequency of cyber incidents caused by hacking activities 2006–2019">
 <figcaption class="fig-caption">The frequency of cyber incidents caused by hacking activities 2006–2019</figcaption>
 
 
@@ -221,7 +221,7 @@ Being able to detect and respond to cyber incidents in a timely manner can save 
 
 VERIS breaks down a cyber incident into 4 stages and records the time units for how long it takes for an organisation to reach that stage:
 
-<img class="centre" src="/img/1__vGIPvD7443dWYrbuw6MlPQ.png" width="100%">
+<img class="centre" src="{{site.baseurl}}/img/1__vGIPvD7443dWYrbuw6MlPQ.png" width="100%">
 <br>
 
 *   Containment: the point at which the organisation stops the incident from occurring or restores to business as usual.
@@ -259,7 +259,7 @@ timeline_df.head()
 
 The resulting dataframe looked like this:
 
-<img class="centre" src="/img/1__7GYfIziPhar9zJMowRGwtw.png" width="50%" >
+<img class="centre" src="{{site.baseurl}}/img/1__7GYfIziPhar9zJMowRGwtw.png" width="50%" >
 <figcaption class="fig-caption">Concatenated timeline _df dataframe</figcaption>
 
 Within the `get_timeline_df` function, I map the string time unit to an integer value from 1 to 8 i.e. ‘Seconds’:1,…, ‘Days’:4,…, ‘Never’:8, so I could sort the values from longest to shortest timespan.
@@ -280,7 +280,7 @@ timeline_matrix.sort_index(ascending=False, inplace=True)
 
 The resulting matrix looked like this:
 
-<img class="centre" src="/img/1__7jfXkZjbbHc__60SebgWwCw.png" width="70%"  alt="Timeline matrix indexed by the four stages of a cyber incident according to VERIS">
+<img class="centre" src="{{site.baseurl}}/img/1__7jfXkZjbbHc__60SebgWwCw.png" width="70%"  alt="Timeline matrix indexed by the four stages of a cyber incident according to VERIS">
 <figcaption class="fig-caption">Timeline matrix indexed by the four stages of a cyber incident according to VERIS</figcaption>
 
 Now I simply pass the matrix to seaborn’s heat map function and relabel the time units back to string values so they can be easily understood:
@@ -297,7 +297,7 @@ plt.yticks([7.5,6.5,5.5,4.5,3.5,2.5,1.5,0.5], ['Seconds', 'Minutes', 'Hours', 'D
 
 The following heat map resulted:
 
-<img class="centre" src="/img/1__6H2VElPMP51yhfohmRyp4w.png" width="100%"  alt="The heat map displays the general trend that cyber incidents are discovered months after they originally take place">
+<img class="centre" src="{{site.baseurl}}/img/1__6H2VElPMP51yhfohmRyp4w.png" width="100%"  alt="The heat map displays the general trend that cyber incidents are discovered months after they originally take place">
 <figcaption class="fig-caption">The heat map displays the general trend that cyber incidents are discovered months after they originally take place</figcaption>
 <br>
 
