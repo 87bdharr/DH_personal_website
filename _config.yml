@@ -22,15 +22,15 @@ title: Dan Harrison
 email: 87bdharr@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Cyber Security Consultant. Data Enthusiast. Pilot. 
-baseurl: "danharrison.me.uk" # the subpath of your site, e.g. /blog
-url: "danharrison.me.uk" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/DH_personal_website" # the subpath of your site, e.g. /blog
+url: "https://87bdharr.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: jekyllrb
 github_username:  87bdharr
 medium_username: 87bdharr
 linkedin_username: daniel-harrison-13830292
 
 # Build settings
-theme: jekyll-theme-clean-blog
+# theme: jekyll-theme-clean-blog
 paginate:           5
 paginate_path:      "/posts/page:num/"
 plugins:
