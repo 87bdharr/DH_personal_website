@@ -32,7 +32,7 @@ I imported the data by cloning the entire [VERIS repo](https://github.com/vz-ris
 import pandas as pd  
 from verispy import VERIS
 
-data_dir = '/Users/danielharrison/VCDB-master/data/json/validated'  
+data_dir = '~/VCDB-master/data/json/validated'  
 v =  VERIS(json_dir=data_dir) #creates a veris object
 
 Found 8539 json files.
