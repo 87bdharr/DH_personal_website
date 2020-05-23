@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!-- saved from url=(0114)http://127.0.0.1:4000/2020/03/15/@87bdharr-a-data-driven-approach-to-understanding-cyber-attacks-5cd8b5f91abe.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>
+    A data driven approach to understanding cyber attacks - Dan Harrison
+    
+  </title>
+
+  <meta name="description" content="Photo by Markus Spiske on Unsplash">
+
+  <link href="./A data driven approach to understanding cyber attacks - Dan Harrison_files/css2" rel="stylesheet" type="text/css">  
+  <link href="./A data driven approach to understanding cyber attacks - Dan Harrison_files/css" rel="stylesheet" type="text/css">
+  <link href="./A data driven approach to understanding cyber attacks - Dan Harrison_files/css(1)" rel="stylesheet" type="text/css">
+  <link href="./A data driven approach to understanding cyber attacks - Dan Harrison_files/css2(1)" rel="stylesheet" type="text/css">
+  <link href="./A data driven approach to understanding cyber attacks - Dan Harrison_files/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="./A data driven approach to understanding cyber attacks - Dan Harrison_files/bootstrap.min.css">
+  <link rel="stylesheet" href="./A data driven approach to understanding cyber attacks - Dan Harrison_files/all.min.css">
+
+  <link rel="stylesheet" href="./A data driven approach to understanding cyber attacks - Dan Harrison_files/main.css">
+  <link rel="stylesheet" href="./A data driven approach to understanding cyber attacks - Dan Harrison_files/custom.css">
+
+  <link rel="canonical" href="http://localhost:4000/2020/03/15/@87bdharr-a-data-driven-approach-to-understanding-cyber-attacks-5cd8b5f91abe.html">
+  <link rel="alternate" type="application/rss+xml" title="Dan Harrison" href="http://127.0.0.1:4000/feed.xml">
+
+</head>
+
+
+<body>
+
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top is-fixed is-visible" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="http://127.0.0.1:4000/">Dan Harrison</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <i class="fa fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:4000/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:4000/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:4000/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://127.0.0.1:4000/contact">Contact</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+  <!-- Page Header -->
+
+  <header class="masthead">
+    
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1 class="c-gold">A data driven approach to understanding cyber attacks</h1>
+            
+            <span class="meta">Posted by
+              <a href="http://127.0.0.1:4000/2020/03/15/@87bdharr-a-data-driven-approach-to-understanding-cyber-attacks-5cd8b5f91abe.html#">Dan Harrison</a>
+              on March 15, 2020 · <span class="reading-time small" title="Estimated read time">
+  
+   25 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <p><img class="centre" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/1__rup5jSB3660x__E6CZF5SaQ.jpeg" width="100%" height="50%"></p>
+<figcaption class="fig-caption">Photo by Markus Spiske on Unsplash</figcaption>
+
+<p>Protecting the digital systems, applications and networks that allow society to function from intentional and unintentional harm is a problem so complex that it cannot be achieved using human intuition alone.</p>
+
+<p>An awakening is taking place within the Cyber Security domain, one that is fuelled by the same commodity that has led the likes of Amazon, Facebook and Google to become the most powerful private companies in the world: <strong><em>Data</em></strong>.</p>
+
+<p>The application of Data Science within the Cyber Security domain offers significant opportunities for organisations to better protect themselves from cyber threats. A common use case being the implementation of machine learning models to monitor for malicious user behaviour, a task not suitable for human analysts to perform- especially for large organisations with thousands of employees.</p>
+
+<p>In this article, I use Python and Pandas to explore the <a href="http://veriscommunity.net/index.html">VERIS Community Data set</a>, a composition of ~8,500 real world cyber incidents to answer a broad research question: “what are the common attributes of a cyber incident?”. By answering this simple question, I hope to show how it’s possible to use data to break down a complex problem into bite-sized and actionable insights.</p>
+
+<h3 id="importing-and-configuring-thedata">Importing and configuring the&nbsp;Data</h3>
+
+<p>I imported the data by cloning the entire <a href="https://github.com/vz-risk/VCDB">VERIS repo</a> on GitHub to my local environment. Because each incident is stored in an individual JSON object, I used the helpful <a href="https://pypi.org/project/verispy/">verispy</a> package to extract the thousands of JSON objects into a single pandas dataframe:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>  
+<span class="kn">from</span> <span class="nn">verispy</span> <span class="kn">import</span> <span class="n">VERIS</span>
+
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s">'/Users/danielharrison/VCDB-master/data/json/validated'</span>  
+<span class="n">v</span> <span class="o">=</span>  <span class="n">VERIS</span><span class="p">(</span><span class="n">json_dir</span><span class="o">=</span><span class="n">data_dir</span><span class="p">)</span> <span class="c1">#creates a veris object
+</span>
+<span class="n">Found</span> <span class="mi">8539</span> <span class="n">json</span> <span class="n">files</span><span class="p">.</span>
+
+<span class="n">veris_df</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">json_to_df</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1">#creates a dataframe from the veris object
+</span></code></pre></div></div>
+
+<p>Inspecting the dataframe reveals the extent of the VERIS Community Dataset (as of Jan 2020):</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>veris_df.shape()  
+(8539, 2347)
+</code></pre></div></div>
+
+<h2 id="1-whos-causing-cyber-incidents">1. Who’s causing cyber incidents?</h2>
+
+<p>Understanding who is going to cause potential harm to digital assets, intentionally or unintentionally, is a natural starting point to address the research question and explore the data.</p>
+
+<p>The VERIS database breaks down cyber threat actors into three categories:</p>
+
+<ol>
+  <li>
+    <p>External- anyone outside of the organisation e.g. hackers, nation states and former employees</p>
+  </li>
+  <li>
+    <p>Internal- anyone who is entrusted with access to internal systems e.g. full time employees, contractors and interns</p>
+  </li>
+  <li>
+    <p>Partner- Third party suppliers to the impacted organisation, who typically have some trusted access to internal systems.</p>
+  </li>
+</ol>
+
+<p>To breakdown the incidents by actor type, I utilised the <code class="highlighter-rouge">enum_summary</code> function supplied by the verispy package:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_actors_internal</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">enum_summary</span><span class="p">(</span><span class="n">veris_df</span><span class="p">,</span> <span class="s">'actor.internal.variety'</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">'actor'</span><span class="p">)</span>
+
+<span class="n">df_actors_external</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">enum_summary</span><span class="p">(</span><span class="n">veris_df</span><span class="p">,</span> <span class="s">'actor.external.variety'</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">'actor'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><em>N.B. I neglected to include the partner actor type because the total number of incidents caused by partners was low, and it detracted from the visualisation later on.</em></p>
+
+<p>After some cleaning up of the <code class="highlighter-rouge">df_actors_internal</code> and <code class="highlighter-rouge">df_actors_external</code> data frames (see my <a href="https://github.com/87bdharr/VERIS-Data-Analysis">GitHub code</a> for further information), I concatenated them into one data frame <code class="highlighter-rouge">df_actors_combined</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_actors_combined</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_actors_internal</span><span class="p">,</span> <span class="n">df_actors_external</span><span class="p">])</span>
+
+<span class="n">df_actors_combined</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><img class="centre" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/1__IN5cRhPpYESPIvVsoh5gYg.png" width="50%" height="50%" alt="Concatenated dataframe df\_actors\_combined contains both internal and external actors"></p>
+<figcaption class="fig-caption">Concatenated dataframe df_actors_combined contains both internal and external&nbsp;actors</figcaption>
+
+<p>Representing this data in visually stunning and interactive ways was made easy thanks to the Plotly express graphing library. I opted to go with a sunburst chart to show how internal and external actors could be broken down further into their actor types:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="n">px</span>
+
+<span class="n">fig_1</span> <span class="o">=</span> <span class="n">px</span><span class="p">.</span><span class="n">sunburst</span><span class="p">(</span><span class="n">df_actors_combined</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="p">[</span><span class="s">'Actor Origin'</span><span class="p">,</span> <span class="s">'Actor Type'</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="s">'Count'</span><span class="p">)</span>
+
+<span class="n">fig_1</span><span class="p">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">uniformtext_minsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">fig_1</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="s">'Actor Origin'</span><span class="p">,</span> <span class="n">auto_open</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Internal and external actors are broken down further into their roles or alliances</p>
+
+<p>NEED TO ADD PLOTLY HERE</p>
+
+<p><em>For further information on embedding plotly visualisations into your pages, I recommend the following</em> <a href="https://towardsdatascience.com/how-to-create-a-plotly-visualization-and-embed-it-on-websites-517c1a78568b"><em>article</em></a><em>.</em></p>
+
+<p>What’s immediately obvious is the almost even distribution of incidents caused by internal and external actors — 52% external and 47% internal (~1% partner &amp; unknown).</p>
+
+<h4 id="cyber-domain-deep-dive1"><strong>Cyber Domain Deep Dive&nbsp;1</strong></h4>
+
+<p>Organisations cannot underestimate the risk posed by internal threats, their privileged access to and working knowledge of internal systems makes it easy for them to cause harm- whether they mean to or not.</p>
+
+<p>For the known data on internal actors, a significant proportion can be attributed to ‘end users’, which the VERIS documentation describes as the end user of an application or regular employee. I interpret this to mean an employee who has standard access to a system and uses it in their day to day work.</p>
+
+<p>Interestingly, from my experience in DevOps environments, I anticipated the number of incidents caused by software developers to be much higher, given the elevated level of access and working knowledge they posses. For example, a developer could modify the underlying source code of software applications to benefit themselves someway, or simply leave secrets such as passwords and API keys exposed in code on hosted on GitHub:</p>
+
+<p><img class="centre" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/github_password.png" width="100%" alt="Searching “removed password” on Github reveals many instances where secrets have been left in source code"></p>
+<figcaption class="fig-caption">Searching “removed password” on Github reveals many instances where secrets have been left in source&nbsp;code</figcaption>
+
+<p>To understand whether developers are acting maliciously or simply making mistakes, I further analysed the data by filtering the <code class="highlighter-rouge">veris_df</code> dataframe by internal developers and the actions they committed:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_actors_developers</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">enum_summary</span><span class="p">(</span><span class="n">veris_df</span><span class="p">,</span> <span class="s">'action'</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">'actor.internal.variety'</span><span class="p">)</span>
+
+<span class="n">df_actors_developers</span> <span class="o">=</span> <span class="n">df_actors_developers</span><span class="p">[</span><span class="n">df_actors_developers</span><span class="p">[</span><span class="s">'by'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'actor.internal.variety.Developer'</span><span class="p">]</span>
+
+<span class="n">df_actors_developers</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">'bar'</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">'enum'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">'x'</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>  
+<span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">'Count'</span><span class="p">)</span>  
+<span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'df\_actors\_developers'</span><span class="p">)</span>
+</code></pre></div></div>
+<p><img class="centre" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/1__Kz8y07jFwObbmRBUr7XnSA.png" width="100%" alt="The majority of incidents caused by develops were caused by errors, very few were malicious in nature"></p>
+<figcaption class="fig-caption">The majority of incidents caused by develops were caused by errors, very few were malicious in&nbsp;nature</figcaption>
+
+<p>The resulting bar chart shows that of the 73 developer related incidents, 56 were errors (i.e. accidental) and the remaining 17 related to misuse, hacking and malware (i.e. malicious). Helpfully, VERIS provides a summary of the incident which I extracted for the 14 incidents labelled as ‘misuse’ and outputted them to a csv to make it easier to read:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_actors_developers_misuse</span> <span class="o">=</span> <span class="n">veris_df</span><span class="p">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">veris_df</span><span class="p">[</span><span class="s">'actor.internal.variety.Developer'</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">veris_df</span><span class="p">[</span><span class="s">'action.Misuse'</span><span class="p">]</span> <span class="o">==</span> <span class="bp">True</span><span class="p">)]</span>
+
+<span class="n">df_actors_developers_misuse</span><span class="p">[</span><span class="s">'summary'</span><span class="p">].</span><span class="n">to_csv</span><span class="p">(</span><span class="s">'developers\_misuse\_summary.csv'</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>One particular incident was caused by a senior IT director in the U.S who was also a developer. This developer:</p>
+
+<blockquote>
+  <p><em>“added a secret code to “random” number-generating computer software in 2005 that allowed him to narrow the drawing-winning odds in multiple games from as great as 5 million-to-1 down to 200-to-1… He hijacked at least five winning drawings totalling more than $24 million in prizes in Colorado, Wisconsin, Iowa, Kansas and Oklahoma”</em></p>
+</blockquote>
+
+<p>Very naughty indeed. [I’ve uploaded the remaining summaries to <a href="https://github.com/87bdharr/VERIS-Data-Analysis">my GitHub</a>]</p>
+
+<p><strong>What this Cyber Domain Deep Dive shows is how we can go from asking the very general question “who’s causing cyber incidents” all the way through to discovering insights about how valuable the integrity of source code is.</strong></p>
+
+<h2 id="2-what-sort-of-actions-lead-to-a-cyber-incident">2. What sort of actions lead to a cyber incident?</h2>
+
+<p>Having explored how developers typically cause cyber incidents, I take a step back and analyse the likely threat actions for all external, internal and partner actors. This is useful because organisations need to know how their internal and external threats are likely to materialise, so they can put adequate protective controls in place.</p>
+
+<p>I wanted to visualise this insight using more of Plotly’s interactive charts, and decided a Sankey diagram would elegantly show the relationship and flows between actor and action. To create a Sankey then, I filtered the <code class="highlighter-rouge">veris_df</code> dataframe on actor and action:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">df_action_actor</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">enum_summary</span><span class="p">(</span><span class="n">veris_df</span><span class="p">,</span> <span class="s">'action'</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">'actor'</span><span class="p">)</span>
+
+<span class="n">Tidied</span> <span class="n">the</span> <span class="n">resulting</span> <span class="n">dataframe</span> <span class="n">up</span> <span class="n">a</span> <span class="n">bit</span><span class="p">:</span>
+
+<span class="n">df_action_actor</span><span class="p">.</span><span class="n">drop</span><span class="p">([</span><span class="s">'n'</span><span class="p">,</span> <span class="s">'freq'</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">df_action_actor</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Actor Origin'</span><span class="p">,</span> <span class="s">'Action Type'</span><span class="p">,</span> <span class="s">'Count'</span><span class="p">]</span>
+
+<span class="n">df_Unknown_3</span> <span class="o">=</span> <span class="n">df_action_actor</span><span class="p">[</span><span class="n">df_action_actor</span><span class="p">[</span><span class="s">'Actor Origin'</span><span class="p">]</span> <span class="o">==</span> <span class="s">'actor.Unknown'</span><span class="p">]</span>
+
+<span class="n">df_action_actor</span><span class="p">.</span><span class="n">drop</span><span class="p">(</span><span class="n">df_Unknown_3</span><span class="p">.</span><span class="n">index</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>And used a mapping function to stop the code outputting ‘actor’ before each word i.e. ‘<code class="highlighter-rouge">actor.External</code>, <code class="highlighter-rouge">actor.Internal</code>, <code class="highlighter-rouge">actor.Partner</code>’:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">map_origin</span> <span class="o">=</span> <span class="p">{</span><span class="s">'actor.External'</span><span class="p">:</span><span class="s">'External'</span><span class="p">,</span> <span class="s">'actor.Internal'</span><span class="p">:</span><span class="s">'Internal'</span><span class="p">,</span> <span class="s">'actor.Partner'</span><span class="p">:</span><span class="s">'Partner'</span><span class="p">}</span>
+
+<span class="n">df_action_actor</span><span class="p">[</span><span class="s">'Actor Origin'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_action_actor</span><span class="p">[</span><span class="s">'Actor Origin'</span><span class="p">].</span><span class="nb">map</span><span class="p">(</span><span class="n">map_origin</span><span class="p">)</span>
+
+<span class="n">df_action_actor</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>The resulting dataframe now ready to produce a Sankey diagram looked like this:</p>
+
+<p><img class="centre" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/1__406Hh5ipEzji9uixJs2n9w.png" width="50%" alt="The df\_action\_actor dataframe stores the relationship between actor origin and their likely action type"></p>
+<figcaption class="fig-caption">The df\_action\_actor dataframe stores the relationship between actor origin and their likely action&nbsp;type</figcaption>
+
+<p>I passed the above <code class="highlighter-rouge">df_action_actor</code> dataframe to the <a href="https://medium.com/kenlok/how-to-create-sankey-diagrams-from-dataframes-in-python-e221c1b4d6b0">pre-built function</a> <code class="highlighter-rouge">gen_Sankey</code>, specified the columns from which to produce the levels and values within the Sankey diagram, and outputted the resulting diagram by calling <code class="highlighter-rouge">plot</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fig_4</span> <span class="o">=</span> <span class="n">genSankey</span><span class="p">(</span><span class="n">df_action_actor</span><span class="p">,</span> <span class="n">cat_cols</span><span class="o">=</span><span class="p">[</span><span class="s">'Actor Origin'</span><span class="p">,</span> <span class="s">'Action Type'</span><span class="p">],</span> <span class="n">value_cols</span><span class="o">=</span><span class="s">'Count'</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">'Sankey Diagram for Veris Community Database'</span><span class="p">)</span>
+
+<span class="n">plot</span><span class="p">(</span><span class="n">fig_4</span><span class="p">,</span> <span class="n">filename</span> <span class="o">=</span> <span class="s">'Cyber Actions Sankey Diagram'</span><span class="p">,</span> <span class="n">auto_open</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The Sankey diagram suggests that some incidents within the dataset have had multiple action types assigned to them, because the count of internal, external and partner incidents increases slightly in comparison to the previous chart (~12% difference in incidents recorded when cutting the data by action type).</p>
+
+<h4 id="cyber-domain-deep-dive2"><strong>Cyber Domain Deep Dive&nbsp;2</strong></h4>
+
+<p>The diagram shows that ~90% of incidents related to internal actors are caused by Error or Misuse. This insight tells us that security departments can expect internal threats materialising as user behaviour, rather than malware or hacking activities, which typically require slightly different monitoring techniques. This is why the field of User Behaviour Analytics (UBA) has exploded recently and is enabling organisations to detect when a user is behaving abnormally in comparison to other users or themselves over a period of time.</p>
+
+<p>Incidents related to external actors are caused by a more diverse set of actions. This makes sense given the actors have to employ more creative ways of obtaining access to a system in order to achieve their outcome. The ‘Hacking’ action seemed a little vague: what exactly does hacking entail? Can we isolate some trends in hacking? To answer these questions I had to add a datetime index to the dataframe and filter on incidents caused by hacking actions (resulting dataframe called <code class="highlighter-rouge">combined</code> ). For further information on how I did this please refer to <a href="https://github.com/87bdharr/VERIS-Data-Analysis">my GitHub</a> because it is too long to include in this article.</p>
+
+<p>After cleaning the dataset I was able to extract the following plot:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ax1</span> <span class="o">=</span> <span class="n">combined</span><span class="p">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">10</span><span class="p">].</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">'bar'</span><span class="p">,</span> <span class="n">stacked</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p><img class="centre" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/1__gNWycej1syTlSnFC9jLIWg.png" width="100%" alt="The frequency of cyber incidents caused by hacking activities 2006–2019"></p>
+<figcaption class="fig-caption">The frequency of cyber incidents caused by hacking activities 2006–2019</figcaption>
+
+<p>The chart shows more detail about what actions are constituted as ‘Hacking’. Denial of Service (DoS) attacks plagued organisations in 2013 and 2014 but, in recent times, appear to have become less of a threat to the organisations in the dataset. This is possibly because anti-DoS technologies have become more advanced and prevalent in recent years: Web Application Firewalls (WAFs) enable rate limiting on incoming web traffic, and are typically offered as standard by Cloud vendors on Content Distribution Networks (CDNs), Application Load Balancers and API Gateways.</p>
+
+<p>However, the VERIS dataset is likely going out of fashion right now, because the data suggests there has been a steady decrease in hacking attacks since 2013. There are plenty of other datasets and statistics which indicate this is not the case. Indeed, as someone who works in cyber security and has a view on a variety of organisations, I can say with first hand experience that the number of cyber-attacks is on the rise.</p>
+
+<h2 id="3-how-long-does-it-take-for-organisations-to-detect-and-respond-to-cyber-incidents">3. How long does it take for organisations to detect and respond to cyber incidents?</h2>
+
+<p>Being able to detect and respond to cyber incidents in a timely manner can save entire organisations from going under. The longer it takes to detect and respond to a cyber incident, the more risk that organisation faces, and the greater potential for harm.</p>
+
+<p>VERIS breaks down a cyber incident into 4 stages and records the time units for how long it takes for an organisation to reach that stage:</p>
+
+<p><img class="centre" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/1__vGIPvD7443dWYrbuw6MlPQ.png" width="100%"></p>
+
+<ul>
+  <li>
+    <p>Containment: the point at which the organisation stops the incident from occurring or restores to business as usual.</p>
+  </li>
+  <li>
+    <p>Compromise: the point at which the actor has gained access to or compromised an information asset e.g. gained access to a sales database</p>
+  </li>
+  <li>
+    <p>Exfiltration: the point at which the actor takes the non-public data from the victim organisation (not applicable to all incidents)</p>
+  </li>
+  <li>
+    <p>Discovery: the point at which the organisation realises an incident has occurred</p>
+  </li>
+  <li>
+    <p>Containment: the point at which the organisation stops the incident from occurring or restores to business as usual.</p>
+  </li>
+</ul>
+
+<p><em>N.B. VERIS only records the time to reach each stage in time units i.e. seconds, minutes, hours, and not the actual time stamp for reasons of confidentiality.</em></p>
+
+<p>I wanted to understand how long it takes for organisations to detect and respond to cyber incidents, and represent that information using a heat map.</p>
+
+<p>To do this, I first had to extract the timeline information from the dataset. I wrote a function (<code class="highlighter-rouge">get_timeline_df(x, event)</code>) that filters the dataset on a particular stage of incident and formats the resulting dataframe for the next stage of processing. See <a href="https://github.com/87bdharr/VERIS-Data-Analysis">my GitHub</a> for more details on the <code class="highlighter-rouge">get_timeline_df</code> function. I called the function 4 times, one for each stage of the incident:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">compromise_time</span> <span class="o">=</span> <span class="n">get_timeline_df</span><span class="p">(</span><span class="err">‘</span><span class="n">timeline</span><span class="p">.</span><span class="n">compromise</span><span class="p">.</span><span class="n">unit</span><span class="err">’</span><span class="p">,</span> <span class="err">‘</span><span class="n">Compromise</span><span class="err">’</span><span class="p">)</span>
+
+<span class="n">discovery_time</span> <span class="o">=</span> <span class="n">get_timeline_df</span><span class="p">(</span><span class="s">'timeline.discovery.unit'</span><span class="p">,</span> <span class="s">'Discovery'</span><span class="p">)</span>
+
+<span class="n">exfiltration_time</span> <span class="o">=</span> <span class="n">get_timeline_df</span><span class="p">(</span><span class="s">'timeline.exfiltration.unit'</span><span class="p">,</span> <span class="s">'Exfiltration'</span><span class="p">)</span>
+
+<span class="n">containment_time</span> <span class="o">=</span> <span class="n">get_timeline_df</span><span class="p">(</span><span class="s">'timeline.containment.unit'</span><span class="p">,</span> <span class="s">'Containment'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>And then concatenated the 4 dataframes into one:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">timeline_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">concat</span><span class="p">([</span><span class="n">compromise_time</span><span class="p">,</span> <span class="n">discovery_time</span><span class="p">,</span> <span class="n">exfiltration_time</span><span class="p">,</span> <span class="n">containment_time</span><span class="p">])</span>  
+<span class="n">timeline_df</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>The resulting dataframe looked like this:</p>
+
+<p><img class="centre" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/1__7GYfIziPhar9zJMowRGwtw.png" width="50%"></p>
+<figcaption class="fig-caption">Concatenated timeline _df dataframe</figcaption>
+
+<p>Within the <code class="highlighter-rouge">get_timeline_df</code> function, I map the string time unit to an integer value from 1 to 8 i.e. ‘Seconds’:1,…, ‘Days’:4,…, ‘Never’:8, so I could sort the values from longest to shortest timespan.</p>
+
+<p>Heat maps can be created in seaborn by passing the data as a matrix. I converted the <code class="highlighter-rouge">timeline_df</code> dataframe into a matrix using the <code class="highlighter-rouge">pd.pivot()</code> function, reindexed the data against the 4 stages of an incident, and sorted the data from longest time unit to shortest:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">timeline_matrix</span> <span class="o">=</span> <span class="n">timeline_df</span><span class="p">.</span><span class="n">pivot</span><span class="p">(</span><span class="s">'Time Unit'</span><span class="p">,</span> <span class="s">'Timeline Event'</span><span class="p">,</span> <span class="s">'Count'</span><span class="p">)</span>
+
+<span class="n">timeline_matrix</span><span class="p">.</span><span class="n">columns</span>
+
+<span class="n">columns_matrix_titles</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Compromise"</span><span class="p">,</span><span class="s">"Exfiltration"</span><span class="p">,</span> <span class="s">"Discovery"</span><span class="p">,</span> <span class="s">"Containment"</span><span class="p">]</span>
+
+<span class="n">timeline_matrix</span> <span class="o">=</span> <span class="n">timeline_matrix</span><span class="p">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">columns_matrix_titles</span><span class="p">)</span>
+
+<span class="n">timeline_matrix</span><span class="p">.</span><span class="n">sort_index</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The resulting matrix looked like this:</p>
+
+<p><img class="centre" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/1__7jfXkZjbbHc__60SebgWwCw.pn" width="100%" alt="Timeline matrix indexed by the four stages of a cyber incident according to VERIS"></p>
+<figcaption class="fig-caption">Timeline matrix indexed by the four stages of a cyber incident according to&nbsp;VERIS</figcaption>
+
+<p>Now I simply pass the matrix to seaborn’s heat map function and relabel the time units back to string values so they can be easily understood:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="n">sns</span>
+
+<span class="n">fig_heatmap</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">sns</span><span class="p">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">timeline_matrix</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s">'BuPu'</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s">'label'</span><span class="p">:</span> <span class="s">'Count'</span><span class="p">},</span> <span class="n">linewidths</span><span class="o">=</span><span class="p">.</span><span class="mi">05</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">yticks</span><span class="p">([</span><span class="mf">7.5</span><span class="p">,</span><span class="mf">6.5</span><span class="p">,</span><span class="mf">5.5</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="mf">3.5</span><span class="p">,</span><span class="mf">2.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="s">'Seconds'</span><span class="p">,</span> <span class="s">'Minutes'</span><span class="p">,</span> <span class="s">'Hours'</span><span class="p">,</span> <span class="s">'Days'</span><span class="p">,</span> <span class="s">'Weeks'</span><span class="p">,</span> <span class="s">'Months'</span><span class="p">,</span> <span class="s">'Years'</span><span class="p">,</span> <span class="s">'Never'</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>The following heat map resulted:</p>
+
+<p><img class="centre" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/1__6H2VElPMP51yhfohmRyp4w.png" width="100%" alt="The heat map displays the general trend that cyber incidents are discovered months after they originally take place"></p>
+<figcaption class="fig-caption">The heat map displays the general trend that cyber incidents are discovered months after they originally take&nbsp;place</figcaption>
+<p><br></p>
+
+<h4 id="cyber-domain-deep-dive3">Cyber Domain Deep Dive&nbsp;3</h4>
+
+<p>What’s immediately obvious from the heat map is that it takes a shorter amount of time to compromise and exfiltrate data than it does for organisations to even realise anything has happened. The high count of incidents that were discovered months after the initial attack correlates well with the accepted 2017 industry average of <em>101 days</em> to discover a cyber incident according to <a href="https://www.fireeye.com/content/dam/fireeye-www/services/pdfs/ig-mtrends-2018.pdf">FireEye</a>.</p>
+
+<p>Cyber professionals often to refer to the time between initial compromise and discovery the ‘dwell time’. One reason the dwell time figure is so high may be because of a particular subset cyber incidents referred to as ‘Advanced Persistent Threats’ or ‘APTs’. APTs like to remain unnoticed on an organisation’s systems for prolonged periods of time. Staying there helps the threat actor understand how the organisation works in order to achieve their objective e.g. steal data.</p>
+
+<p>Why does dwell time matter? A <a href="https://www.ponemon.org/library/2017-cost-of-data-breach-study-united-states">recent paper</a> indicates there is a correlation between dwell time and the average cost of a cyber attack. <strong><em>The longer the dwell time the more costly the attack.</em></strong></p>
+
+<p>Organisations can measure the effectiveness of their threat detection controls using their average dwell time as a KPI. Only through measurement can organisations get a true understanding of their cyber risk.</p>
+
+<h4 id="cyber-security-is-a-dataproblem">Cyber Security is a Data&nbsp;Problem</h4>
+
+<p>Everything that takes place in the digital world is recorded. A user clicking on a link in their browser, an employee getting their password wrong 3 times, a file transferred from one network location to another, are events recorded in digital format. These digital events can be used to protect organisations from cyber incidents, but only if the mountains of data that users, employees and systems produce each day can be wielded as a tool for good.</p>
+
+<p>The VERIS Community Dataset is just one use case of applying data analysis to protect digital systems. Through observing general trends across thousands of incidents, organisations can understand where the threats are most likely to come from and how they’re likely going to try and cause harm.</p>
+
+<blockquote>
+  <p><em>Without big data analytics, companies are blind and deaf, wandering out onto the Web like deer on a freeway.</em> - Geoffrey Moore</p>
+</blockquote>
+
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="http://127.0.0.1:4000/2020/01/17/@87bdharr-strategy-business-model-and-operating-model-decoded-402dc13167af.html" data-toggle="tooltip" data-placement="top" title="" data-original-title="‘Strategy’, ‘Business Model’ and ‘Operating Model’ decoded">← Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="http://127.0.0.1:4000/2020/05/02/my-second-post.html" data-toggle="tooltip" data-placement="top" title="" data-original-title="My Second Post">Next<span class="d-none d-md-inline">
+              Post</span> →</a>
+          
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <ul class="list-inline text-center">
+          
+          <li class="list-inline-item">
+            <a href="mailto:87bdharr@gmail.com">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="far fa-envelope fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          
+          <li class="list-inline-item">
+            <a href="https://www.linkedin.com/in/daniel-harrison-13830292">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://github.com/87bdharr">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+          
+          <li class="list-inline-item">
+            <a href="https://medium.com/@87bdharr">
+              <span class="fa-stack fa-lg">
+                <i class="fas fa-circle fa-stack-2x"></i>
+                <i class="fab fa-medium fa-stack-1x fa-inverse"></i>
+              </span>
+            </a>
+          </li>
+          
+        </ul>
+        <p class="copyright text-muted">Copyright ©  2020</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+  <script src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/jquery.min.js"></script>
+<script src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/bootstrap.bundle.min.js"></script>
+<script src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/clean-blog.min.js"></script>
+
+<script src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/scripts.js"></script>
+
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async="" src="./A data driven approach to understanding cyber attacks - Dan Harrison_files/js"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '');
+</script>
+
+
+
+
+
+
+</body></html>
